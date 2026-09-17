@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Диагностика: профильная математика</title>
+<meta name="description" content="Диагностический тест по профильной математике: узнай пробелы по темам и получи план до целевого балла ЕГЭ.">
+<meta name="theme-color" content="#B5502E" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12161B" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Диагностика ЕГЭ">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --paper:#EEF2F5; --grid:#DCE4EA; --card:#FFFFFF;
+    --ink:#1B2A41; --ink-soft:#4B5B72;
+    --accent:#B5502E; --accent-soft:#F1DCD3;
+    --accent2:#2F6B5E; --accent2-soft:#DCEAE6;
+    --border:#D7DEE3; --bad:#B5502E; --bad-soft:#F1DCD3;
+    --shadow: 0 1px 2px rgba(27,42,65,.06), 0 6px 20px rgba(27,42,65,.05);
+    --font-head: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-body: Georgia, 'Times New Roman', Times, serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#12161B; --grid:#1F262D; --card:#191F26;
+      --ink:#E7ECEF; --ink-soft:#9FAEC0;
+      --accent:#E28A62; --accent-soft:#3A2A22;
+      --accent2:#6FB6A5; --accent2-soft:#1E332E;
+      --border:#2A323B; --bad:#E28A62; --bad-soft:#3A2A22;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#12161B; --grid:#1F262D; --card:#191F26;
+    --ink:#E7ECEF; --ink-soft:#9FAEC0;
+    --accent:#E28A62; --accent-soft:#3A2A22;
+    --accent2:#6FB6A5; --accent2-soft:#1E332E;
+    --border:#2A323B; --bad:#E28A62; --bad-soft:#3A2A22;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:linear-gradient(var(--grid) 1px, transparent 1px) 0 0/100% 28px, var(--paper);
+    color:var(--ink); font-family:var(--font-body); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-y:contain;
+  }
+  h1,h2,h3,.brand,.btn,.stat-label,.navlink{font-family:var(--font-head);}
+
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+    padding:calc(14px + env(safe-area-inset-top)) 16px 10px;
+  }
+  .topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  h1.brand{font-size:17px;font-weight:700;margin:0;flex:1;min-width:180px;}
+  .navlink{font-size:12px;color:var(--ink-soft);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:7px 12px;white-space:nowrap;}
+  .navlink:hover{color:var(--accent2);border-color:var(--accent2);}
+
+  main{max-width:760px;margin:0 auto;padding:18px 16px calc(80px + env(safe-area-inset-bottom));}
+  .hint{background:var(--accent2-soft);border:1px dashed var(--accent2);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:13.5px;margin-bottom:18px;}
+  .hint b{color:var(--accent2);}
+  .disclaimer{background:var(--bad-soft);border:1px dashed var(--bad);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:12.5px;margin-bottom:18px;}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .target-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .target-row label{font-size:13px;color:var(--ink-soft);}
+  .target-row input[type=number]{width:80px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--paper);color:var(--ink);font-size:16px;}
+
+  .btn{border:1px solid var(--border);background:var(--card);color:var(--ink-soft);border-radius:10px;padding:11px 16px;font-size:13px;cursor:pointer;min-height:44px;}
+  .btn.primary{background:var(--accent2);border-color:var(--accent2);color:#fff;font-weight:700;}
+  .btn.primary:hover{filter:brightness(1.06);}
+  .btn:hover{color:var(--accent);border-color:var(--accent);}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+
+  section.topic{margin-bottom:22px;}
+  .topic-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid var(--ink);}
+  .topic-head h2{font-size:16px;margin:0;}
+  .topic-head .tcnt{margin-left:auto;font-size:11.5px;color:var(--ink-soft);font-family:var(--font-head);}
+
+  .q{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:9px;box-shadow:var(--shadow);}
+  .q.correct{border-left:4px solid var(--accent2);}
+  .q.wrong{border-left:4px solid var(--bad);}
+  .q-text{font-size:14.5px;margin:0 0 8px;}
+  .q-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .q-row input[type=text]{flex:1;min-width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--border);background:var(--paper);color:var(--ink);font-size:16px;}
+  .q-answer{font-size:12.5px;color:var(--accent2);margin-top:6px;display:none;}
+  .q.wrong .q-answer{display:block;}
+
+  .results{display:none;}
+  .results.show{display:block;}
+  .score-big{font-family:var(--font-head);font-size:34px;font-weight:800;color:var(--accent2);margin:0;}
+  .score-sub{font-size:13px;color:var(--ink-soft);margin:2px 0 0;}
+  .band{font-size:13px;margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--paper);border:1px solid var(--border);}
+
+  table.gaps{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
+  table.gaps th, table.gaps td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--border);}
+  table.gaps th{color:var(--ink-soft);font-family:var(--font-head);font-size:11px;text-transform:uppercase;letter-spacing:.4px;}
+  .bar-mini{height:6px;border-radius:4px;background:var(--border);overflow:hidden;width:80px;}
+  .bar-mini .fill{height:100%;background:var(--accent2);}
+  .bar-mini .fill.weak{background:var(--bad);}
+
+  .plan-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .plan-item:last-child{border-bottom:none;}
+  .plan-num{font-family:var(--font-head);font-weight:800;color:var(--accent);min-width:26px;}
+
+  .history-item{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);}
+  .history-item:last-child{border-bottom:none;}
+  .history-empty{font-size:12.5px;color:var(--ink-soft);}
+
+  footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--ink-soft);font-size:12px;text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <h1 class="brand">🎯 Диагностика: профильная математика</h1>
+    <a class="navlink" href="index.html">← Термины и формулы</a>
+  </div>
+</div>
+
+<main>
+  <div class="disclaimer">
+    <b>Важно.</b> Задачи ниже составлены по образцу структуры профильного ЕГЭ (тестируют те же темы и типы), но это <b>не реальные варианты ФИПИ</b> — банк официальных заданий здесь не воспроизводится. Итоговая оценка в баллах — грубый ориентир по проценту решённых задач, а не официальный перевод первичного балла в тестовый: та шкала публикуется Рособрнадзором каждый год заново и здесь не зашита. Для точного перевода смотри актуальную таблицу на fipi.ru или ege.rustest.ru.
+  </div>
+
+  <div class="card">
+    <div class="target-row">
+      <label for="targetScore">Твоя цель, баллов ЕГЭ:</label>
+      <input type="number" id="targetScore" min="0" max="100" value="75">
+      <span style="font-size:12px;color:var(--ink-soft);">обычно 70–80 — уверенный результат для профильной математики</span>
+    </div>
+  </div>
+
+  <form id="testForm"></form>
+
+  <div class="btn-row">
+    <button class="btn primary" id="checkBtn">Проверить и получить план</button>
+    <button class="btn" id="resetBtn">Сбросить ответы</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="card">
+      <p class="score-big" id="scoreBig">0%</p>
+      <p class="score-sub" id="scoreSub">0 из 0 решено верно</p>
+      <div class="band" id="band"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 4px;">Пробелы по темам</h3>
+      <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 6px;">Сначала — самые слабые темы.</p>
+      <table class="gaps">
+        <thead><tr><th>Тема</th><th>Результат</th><th></th></tr></thead>
+        <tbody id="gapsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px;">План: что и сколько раз прорешать</h3>
+      <div id="planBody"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px;">История попыток</h3>
+      <div id="historyBody"></div>
+    </div>
+  </div>
+</main>
+
+<footer>Диагностика составлена по образцу структуры профильного ЕГЭ по математике · тренировочные задачи, не официальные варианты · прогресс хранится только на этом устройстве</footer>
+
+<script>
+/* Банк тренировочных задач: 8 тем × 3 задания, все с коротким проверяемым ответом.
+   Составлено по образцу типов заданий профильного ЕГЭ (не копия официальных вариантов). */
+const TOPICS = [
+  { id:"algebra", title:"Уравнения и алгебраические преобразования", items:[
+    { q:"Решите уравнение: 2^(x+1) = 32. Найдите x.", a:"4" },
+    { q:"Решите уравнение: log₃(x) + log₃(x−2) = 1. Найдите x.", a:"3" },
+    { q:"Найдите корень уравнения: √(3x+4) = 5.", a:"7" }
+  ]},
+  { id:"text", title:"Текстовые и экономические задачи", items:[
+    { q:"Смешали 5 кг конфет по 300 руб/кг и 3 кг по 500 руб/кг. Найдите среднюю цену смеси, руб/кг.", a:"375" },
+    { q:"Товар стоил 2000 руб. Сначала цену повысили на 20%, затем новую цену снизили на 25%. Сколько рублей стоит товар после двух изменений?", a:"1800" },
+    { q:"Вклад 100000 руб положили в банк под 10% годовых (простые проценты). Сколько рублей будет на счёте через 3 года?", a:"130000" }
+  ]},
+  { id:"planimetry", title:"Планиметрия", items:[
+    { q:"В прямоугольном треугольнике катеты равны 6 и 8. Найдите гипотенузу.", a:"10" },
+    { q:"Площадь квадрата равна 49. Найдите его периметр.", a:"28" },
+    { q:"В треугольнике две стороны равны 5 и 12, угол между ними 90°. Найдите площадь треугольника.", a:"30" }
+  ]},
+  { id:"stereometry", title:"Стереометрия", items:[
+    { q:"Объём куба равен 27. Найдите длину его ребра.", a:"3" },
+    { q:"Найдите объём прямоугольного параллелепипеда со сторонами 2, 3 и 4.", a:"24" },
+    { q:"Радиус шара равен 3. Найдите отношение его объёма к π (то есть V/π).", a:"36" }
+  ]},
+  { id:"functions", title:"Функции и производная", items:[
+    { q:"Найдите производную функции f(x) = x³ − 3x в точке x = 2.", a:"9" },
+    { q:"Найдите точку минимума функции f(x) = x² − 6x + 5.", a:"3" },
+    { q:"Найдите значение функции f(x) = 2x² + 1 при x = 3.", a:"19" }
+  ]},
+  { id:"numbers", title:"Числа и их свойства", items:[
+    { q:"Найдите остаток от деления числа 100 на 7.", a:"2" },
+    { q:"Найдите наибольший общий делитель чисел 36 и 60.", a:"12" },
+    { q:"Сколько натуральных делителей у числа 60?", a:"12" }
+  ]},
+  { id:"probability", title:"Вероятность и статистика", items:[
+    { q:"Монету бросают дважды. Найдите вероятность того, что оба раза выпадет орёл.", a:"0.25" },
+    { q:"В коробке 3 красных и 7 синих шаров. Наугад вынимают один шар. Найдите вероятность того, что он красный.", a:"0.3" },
+    { q:"Игральный кубик бросают один раз. Найдите вероятность того, что выпадет чётное число.", a:"0.5" }
+  ]},
+  { id:"parameters", title:"Задачи с параметром", items:[
+    { q:"При каком значении a уравнение x² − 4x + a = 0 имеет единственный корень?", a:"4" },
+    { q:"Найдите значение a, при котором уравнение x + a = 5 имеет корень x = 3.", a:"2" },
+    { q:"При каком наименьшем целом a неравенство x² + ax + 9 > 0 выполняется для всех x?", a:"-5" }
+  ]}
+];
+
+const HISTORY_KEY = "ege-diagnostic-history-v1";
+const TARGET_KEY = "ege-diagnostic-target-v1";
+
+function normalize(s){
+  return String(s).trim().toLowerCase().replace(',', '.').replace(/\s+/g,'');
+}
+function isCorrect(userAnswer, correctAnswer){
+  const u = normalize(userAnswer), c = normalize(correctAnswer);
+  if(u === '') return false;
+  const un = parseFloat(u), cn = parseFloat(c);
+  if(!isNaN(un) && !isNaN(cn)) return Math.abs(un - cn) < 0.01;
+  return u === c;
+}
+
+const form = document.getElementById('testForm');
+TOPICS.forEach(topic => {
+  const section = document.createElement('section');
+  section.className = 'topic';
+  section.innerHTML = `<div class="topic-head"><h2>${topic.title}</h2><span class="tcnt">${topic.items.length} задания</span></div>`;
+  topic.items.forEach((item, ii) => {
+    const id = topic.id + '-' + ii;
+    const q = document.createElement('div');
+    q.className = 'q';
+    q.id = 'q-' + id;
+    q.innerHTML = `
+      <p class="q-text">${item.q}</p>
+      <div class="q-row">
+        <input type="text" inputmode="decimal" id="in-${id}" placeholder="Ответ" autocomplete="off">
+      </div>
+      <p class="q-answer" id="ans-${id}">Правильный ответ: ${item.a}</p>`;
+    section.appendChild(q);
+  });
+  form.appendChild(section);
+});
+
+try{
+  const t = localStorage.getItem(TARGET_KEY);
+  if(t) document.getElementById('targetScore').value = t;
+}catch(e){}
+document.getElementById('targetScore').addEventListener('change', (e) => {
+  try{ localStorage.setItem(TARGET_KEY, e.target.value); }catch(err){}
+});
+
+function loadHistory(){
+  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }catch(e){ return []; }
+}
+function saveHistory(list){
+  try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); }catch(e){}
+}
+function renderHistory(){
+  const list = loadHistory();
+  const el = document.getElementById('historyBody');
+  if(!list.length){
+    el.innerHTML = '<p class="history-empty">Пока нет завершённых попыток — пройди тест, чтобы увидеть тренд.</p>';
+    return;
+  }
+  el.innerHTML = list.slice().reverse().map(h => `
+    <div class="history-item">
+      <span>${new Date(h.ts).toLocaleDateString('ru-RU')}</span>
+      <span>${h.correct}/${h.total} (${h.pct}%)</span>
+      <span>${h.pct >= h.target ? '🎯 цель достигнута' : 'до цели ' + h.target + '%: ещё ' + (h.target - h.pct) + ' п.п.'}</span>
+    </div>`).join('');
+}
+renderHistory();
+
+function scoreBand(pct){
+  // Грубая, явно приблизительная привязка процента решённых задач к диапазону баллов.
+  // Не официальная шкала перевода первичного балла ЕГЭ — она публикуется отдельно и меняется по годам.
+  if(pct >= 90) return "≈ 85–100 баллов (ориентировочно)";
+  if(pct >= 75) return "≈ 70–85 баллов (ориентировочно)";
+  if(pct >= 55) return "≈ 55–70 баллов (ориентировочно)";
+  if(pct >= 35) return "≈ 40–55 баллов (ориентировочно)";
+  return "≈ ниже 40 баллов (ориентировочно)";
+}
+
+function runCheck(){
+  const target = parseInt(document.getElementById('targetScore').value, 10) || 75;
+  let totalCorrect = 0, totalCount = 0;
+  const topicStats = [];
+
+  TOPICS.forEach(topic => {
+    let correct = 0;
+    topic.items.forEach((item, ii) => {
+      const id = topic.id + '-' + ii;
+      const input = document.getElementById('in-' + id);
+      const qEl = document.getElementById('q-' + id);
+      const ok = isCorrect(input.value, item.a);
+      qEl.classList.toggle('correct', ok);
+      qEl.classList.toggle('wrong', !ok);
+      if(ok) correct++;
+    });
+    totalCorrect += correct;
+    totalCount += topic.items.length;
+    topicStats.push({ id: topic.id, title: topic.title, correct, total: topic.items.length });
+  });
+
+  const pct = Math.round((totalCorrect / totalCount) * 100);
+
+  document.getElementById('scoreBig').textContent = pct + '%';
+  document.getElementById('scoreSub').textContent = totalCorrect + ' из ' + totalCount + ' решено верно';
+  document.getElementById('band').innerHTML = 'Ориентировочный уровень: <b>' + scoreBand(pct) + '</b>. Цель: ' + target + ' баллов.';
+
+  topicStats.sort((a, b) => (a.correct/a.total) - (b.correct/b.total));
+
+  const gapsBody = document.getElementById('gapsBody');
+  gapsBody.innerHTML = topicStats.map(t => {
+    const tp = Math.round((t.correct/t.total)*100);
+    const weak = tp < 67;
+    return `<tr>
+      <td>${t.title}</td>
+      <td>${t.correct}/${t.total}</td>
+      <td><div class="bar-mini"><div class="fill ${weak?'weak':''}" style="width:${tp}%"></div></div></td>
+    </tr>`;
+  }).join('');
+
+  const weakTopics = topicStats.filter(t => t.correct < t.total);
+  const planBody = document.getElementById('planBody');
+  if(!weakTopics.length){
+    planBody.innerHTML = '<p style="font-size:13.5px;">Все темы решены без ошибок в этой диагностике. Пройди тест ещё раз через несколько дней, чтобы убедиться, что результат стабилен — разовый успех ещё не гарантия на экзамене.</p>';
+  } else {
+    planBody.innerHTML = weakTopics.map((t, i) => {
+      const missed = t.total - t.correct;
+      const reps = Math.min(12, Math.max(3, missed * 4));
+      return `<div class="plan-item">
+        <span class="plan-num">${i+1}.</span>
+        <span><b>${t.title}</b> — ошибок: ${missed} из ${t.total}. Прорешай ещё <b>${reps} задач</b> этого типа, затем пройди диагностику заново, чтобы проверить, закрылся ли пробел.</span>
+      </div>`;
+    }).join('');
+  }
+
+  const history = loadHistory();
+  history.push({ ts: Date.now(), correct: totalCorrect, total: totalCount, pct, target });
+  saveHistory(history);
+  renderHistory();
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('checkBtn').addEventListener('click', runCheck);
+document.getElementById('resetBtn').addEventListener('click', () => {
+  form.querySelectorAll('input[type=text]').forEach(i => i.value = '');
+  form.querySelectorAll('.q').forEach(q => q.classList.remove('correct','wrong'));
+  document.getElementById('results').classList.remove('show');
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

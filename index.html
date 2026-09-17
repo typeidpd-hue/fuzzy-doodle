@@ -51,7 +51,9 @@
     -webkit-tap-highlight-color:transparent;
     overscroll-behavior-y:contain;
   }
-  h1,h2,.brand,.pill,.btn,.stat-label,.tab{font-family:var(--font-head);}
+  h1,h2,.brand,.pill,.btn,.stat-label,.tab,.navlink{font-family:var(--font-head);}
+  .navlink{font-size:12px;color:var(--ink-soft);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:7px 12px;white-space:nowrap;}
+  .navlink:hover{color:var(--accent2);border-color:var(--accent2);}
 
   .offline-banner{
     background:var(--accent); color:#fff; text-align:center;
@@ -134,6 +136,7 @@
       <div class="bar"><div class="fill" id="overallFill"></div></div>
       <span class="stat-label" id="overallLabel">0 / 0</span>
     </div>
+    <a class="navlink" href="diagnostic.html">🎯 Тест ЕГЭ и план →</a>
     <button class="btn" id="resetBtn">Сбросить</button>
   </div>
   <div class="tabs">
