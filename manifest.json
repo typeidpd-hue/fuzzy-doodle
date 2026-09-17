@@ -1,1 +1,15 @@
-__FILE__:/tmp/claude-0/-home-user/cf07466b-c4eb-55a0-bf94-568b593a3c5b/scratchpad/manifest.json
+{
+  "name": "Геометрия 7–11: термины и формулы",
+  "short_name": "Геометрия",
+  "description": "Оффлайн-справочник по планиметрии (7–9 класс) и стереометрии (10–11 класс): все термины и формулы в одном файле.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EEF2F5",
+  "theme_color": "#B5502E",
+  "orientation": "portrait-primary",
+  "lang": "ru",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

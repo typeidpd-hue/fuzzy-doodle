@@ -1,1 +1,6 @@
-__FILE__:/tmp/claude-0/-home-user/cf07466b-c4eb-55a0-bf94-568b593a3c5b/scratchpad/icon.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="26" fill="#B5502E"/>
+  <circle cx="46" cy="86" r="24" fill="none" stroke="#EEF2F5" stroke-width="6"/>
+  <rect x="64" y="18" width="46" height="46" fill="none" stroke="#EEF2F5" stroke-width="6"/>
+  <path d="M18 20 L56 20 L18 58 Z" fill="#EEF2F5" opacity="0.9"/>
+</svg>
