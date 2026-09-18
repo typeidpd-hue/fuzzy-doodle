@@ -123,7 +123,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <h1 class="brand">🎯 Диагностика: профильная математика</h1>
-    <a class="navlink" href="index.html">← Термины и формулы</a>
+    <a class="navlink" href="index.html">🏠 Куратор</a>
+    <a class="navlink" href="terms.html">📚 Термины и формулы</a>
   </div>
 </div>
 
@@ -354,7 +355,10 @@ function runCheck(){
   }
 
   const history = loadHistory();
-  history.push({ ts: Date.now(), correct: totalCorrect, total: totalCount, pct, target });
+  history.push({
+    ts: Date.now(), correct: totalCorrect, total: totalCount, pct, target,
+    topics: topicStats.map(t => ({ id: t.id, title: t.title, correct: t.correct, total: t.total }))
+  });
   saveHistory(history);
   renderHistory();
 
