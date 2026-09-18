@@ -1,5 +1,5 @@
-const CACHE_NAME = 'geometry-app-v2';
-const PRECACHE_URLS = ['./', './index.html', './diagnostic.html', './manifest.json', './icon.svg'];
+const CACHE_NAME = 'geometry-app-v3';
+const PRECACHE_URLS = ['./', './index.html', './terms.html', './diagnostic.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

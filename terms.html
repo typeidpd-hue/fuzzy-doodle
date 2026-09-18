@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия 7–11: термины и формулы</title>
+<meta name="description" content="Оффлайн-справочник: все термины и формулы планиметрии (7–9 класс) и стереометрии (10–11 класс) в одном файле.">
+<meta name="theme-color" content="#B5502E" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12161B" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Геометрия">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --paper:#EEF2F5; --grid:#DCE4EA; --card:#FFFFFF;
+    --ink:#1B2A41; --ink-soft:#4B5B72;
+    --accent:#B5502E; --accent-soft:#F1DCD3;
+    --accent2:#2F6B5E; --accent2-soft:#DCEAE6;
+    --border:#D7DEE3; --known:#8FA893;
+    --shadow: 0 1px 2px rgba(27,42,65,.06), 0 6px 20px rgba(27,42,65,.05);
+    --font-head: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-body: Georgia, 'Times New Roman', Times, serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#12161B; --grid:#1F262D; --card:#191F26;
+      --ink:#E7ECEF; --ink-soft:#9FAEC0;
+      --accent:#E28A62; --accent-soft:#3A2A22;
+      --accent2:#6FB6A5; --accent2-soft:#1E332E;
+      --border:#2A323B; --known:#4F7A5B;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#12161B; --grid:#1F262D; --card:#191F26;
+    --ink:#E7ECEF; --ink-soft:#9FAEC0;
+    --accent:#E28A62; --accent-soft:#3A2A22;
+    --accent2:#6FB6A5; --accent2-soft:#1E332E;
+    --border:#2A323B; --known:#4F7A5B;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:linear-gradient(var(--grid) 1px, transparent 1px) 0 0/100% 28px, var(--paper);
+    color:var(--ink); font-family:var(--font-body); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+    overscroll-behavior-y:contain;
+  }
+  h1,h2,.brand,.pill,.btn,.stat-label,.tab,.navlink{font-family:var(--font-head);}
+  .navlink{font-size:12px;color:var(--ink-soft);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:7px 12px;white-space:nowrap;}
+  .navlink:hover{color:var(--accent2);border-color:var(--accent2);}
+
+  .offline-banner{
+    background:var(--accent); color:#fff; text-align:center;
+    font-family:var(--font-head); font-size:12px; font-weight:700;
+    padding:6px 10px calc(6px + env(safe-area-inset-top)) 10px;
+  }
+  .offline-banner.hidden{display:none;}
+
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+    padding:14px 16px 10px;
+    padding-top:calc(14px + env(safe-area-inset-top));
+  }
+  .topbar-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  h1.brand{font-size:18px;font-weight:700;margin:0;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .progress-overall{flex:1;min-width:160px;display:flex;align-items:center;gap:10px;}
+  .bar{flex:1;height:8px;border-radius:5px;background:var(--border);overflow:hidden;}
+  .bar .fill{height:100%;width:0%;background:var(--accent2);transition:width .3s ease;}
+  .stat-label{font-size:12px;color:var(--ink-soft);white-space:nowrap;}
+
+  .tabs{max-width:1080px;margin:10px auto 0;display:flex;gap:6px;background:var(--border);padding:4px;border-radius:12px;}
+  .tab{flex:1;border:none;background:transparent;color:var(--ink-soft);padding:11px 10px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;min-height:44px;}
+  .tab.active{background:var(--card);color:var(--accent);box-shadow:var(--shadow);}
+
+  .search-row{max-width:1080px;margin:10px auto 0;display:flex;gap:8px;}
+  #search{flex:1;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--ink);font-family:var(--font-body);font-size:16px;}
+  #search:focus{outline:2px solid var(--accent2);outline-offset:1px;}
+  .btn{border:1px solid var(--border);background:var(--card);color:var(--ink-soft);border-radius:10px;padding:0 14px;font-size:12px;cursor:pointer;min-height:44px;}
+  .btn:hover{color:var(--accent);border-color:var(--accent);}
+
+  .toc{max-width:1080px;margin:12px auto 0;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;}
+  .toc::-webkit-scrollbar{height:5px;}
+  .toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  .pill{flex:none;font-size:12px;font-weight:600;padding:9px 12px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:var(--ink-soft);cursor:pointer;white-space:nowrap;text-decoration:none;}
+  .pill.dim{opacity:.35;}
+  .pill:hover{border-color:var(--accent2);color:var(--accent2);}
+
+  main{max-width:1080px;margin:0 auto;padding:18px 16px calc(80px + env(safe-area-inset-bottom));}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  section.chapter{margin-bottom:32px;scroll-margin-top:190px;content-visibility:auto;contain-intrinsic-size:0 600px;}
+  .chapter-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--ink);}
+  .chapter-head h2{font-size:19px;margin:0;color:var(--ink);}
+  .chapter-progress{margin-left:auto;font-size:12px;color:var(--ink-soft);}
+
+  .item{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:10px;padding:12px 14px;margin-bottom:9px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:flex-start;}
+  .item.formula-item{border-left-color:var(--accent);}
+  .item.known{border-left-color:var(--known);opacity:.72;}
+  .item input[type="checkbox"]{margin-top:4px;width:20px;height:20px;accent-color:var(--accent2);cursor:pointer;flex:none;}
+  .item-body{flex:1;min-width:0;}
+  .item-title{font-family:var(--font-head);font-size:14.5px;font-weight:700;margin:0 0 4px;color:var(--ink);}
+  .item.known .item-title{text-decoration:line-through;text-decoration-color:var(--known);}
+  .term-def{font-size:14.5px;margin:0;color:var(--ink-soft);}
+  .item-formula{font-size:15px;background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:6px 10px;display:inline-block;margin:2px 0 2px;font-weight:600;}
+  .item-note{font-size:13px;color:var(--accent2);margin:4px 0 0;}
+
+  .hidden{display:none !important;}
+  footer{max-width:1080px;margin:0 auto;padding:0 16px 40px;color:var(--ink-soft);font-size:12px;text-align:center;}
+  .hint{background:var(--accent2-soft);border:1px dashed var(--accent2);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:14px;margin-bottom:22px;}
+
+  @media (max-width:480px){
+    .topbar-inner{gap:10px;}
+    h1.brand{font-size:16px;}
+    .tabs{gap:4px;}
+    .tab{padding:11px 6px;font-size:12.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="offline-banner hidden" id="offlineBanner">📴 Офлайн — показаны сохранённые данные</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <h1 class="brand">📚 Термины и формулы</h1>
+    <div class="progress-overall">
+      <div class="bar"><div class="fill" id="overallFill"></div></div>
+      <span class="stat-label" id="overallLabel">0 / 0</span>
+    </div>
+    <a class="navlink" href="index.html">🏠 Куратор</a>
+    <a class="navlink" href="diagnostic.html">🎯 Тест ЕГЭ и план →</a>
+    <button class="btn" id="resetBtn">Сбросить</button>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="terms">Термины</button>
+    <button class="tab" data-tab="formulas">Формулы</button>
+  </div>
+  <div class="search-row">
+    <input id="search" type="text" placeholder="Поиск термина или формулы…" autocomplete="off" inputmode="search">
+  </div>
+  <nav class="toc" id="toc-terms"></nav>
+  <nav class="toc hidden" id="toc-formulas"></nav>
+</div>
+
+<main>
+  <div class="view active" id="view-terms">
+    <div class="hint">Все определения из курса 7–9 класса в одном месте. Отмечай ✓ то, что можешь объяснить своими словами без учебника. Страница работает офлайн и весь прогресс хранится только на этом устройстве.</div>
+    <div id="content-terms"></div>
+  </div>
+  <div class="view" id="view-formulas">
+    <div class="hint">Планиметрия (7–9 класс) и стереометрия — объёмы и площади поверхностей (10–11 класс) — всё для быстрой сверки при решении задач.</div>
+    <div id="content-formulas"></div>
+  </div>
+</main>
+
+<footer>Термины и формулы: планиметрия 7–9 класс, стереометрия 10–11 класс · для подготовки к профильному ЕГЭ · работает офлайн</footer>
+
+<script>
+const TERMS = [
+{id:"t-basic", title:"Базовые понятия", grade:"7 класс", items:[
+  {t:"Точка, прямая, отрезок, луч", d:"неопределяемые (основные) объекты геометрии, из которых строятся все остальные фигуры"},
+  {t:"Угол", d:"фигура, образованная точкой (вершиной) и двумя лучами (сторонами), выходящими из неё"},
+  {t:"Биссектриса угла", d:"луч из вершины угла, делящий его на два равных угла"},
+  {t:"Смежные углы", d:"два угла с общей стороной, две другие стороны которых — дополнительные лучи одной прямой; в сумме дают 180°"},
+  {t:"Вертикальные углы", d:"два угла, стороны одного из которых являются продолжениями сторон другого; равны между собой"},
+  {t:"Перпендикулярные прямые", d:"прямые, пересекающиеся под углом 90°"}
+]},
+{id:"t-tri", title:"Треугольники", grade:"7–8 класс", items:[
+  {t:"Медиана треугольника", d:"отрезок, соединяющий вершину с серединой противоположной стороны"},
+  {t:"Высота треугольника", d:"перпендикуляр, опущенный из вершины на прямую, содержащую противоположную сторону"},
+  {t:"Биссектриса треугольника", d:"часть биссектрисы угла треугольника от вершины до пересечения с противоположной стороной"},
+  {t:"Серединный перпендикуляр", d:"прямая, проходящая через середину отрезка перпендикулярно ему"},
+  {t:"Средняя линия треугольника", d:"отрезок, соединяющий середины двух сторон треугольника"},
+  {t:"Равнобедренный треугольник", d:"треугольник с двумя равными сторонами (боковыми); третья сторона — основание"},
+  {t:"Равносторонний треугольник", d:"треугольник, у которого все три стороны равны"},
+  {t:"Катет и гипотенуза", d:"в прямоугольном треугольнике катеты прилегают к прямому углу, гипотенуза — сторона напротив прямого угла (самая длинная)"},
+  {t:"Внешний угол треугольника", d:"угол, смежный с одним из внутренних углов треугольника"}
+]},
+{id:"t-quad", title:"Четырёхугольники", grade:"8 класс", items:[
+  {t:"Параллелограмм", d:"четырёхугольник, у которого противоположные стороны попарно параллельны"},
+  {t:"Прямоугольник", d:"параллелограмм, у которого все углы прямые"},
+  {t:"Ромб", d:"параллелограмм, у которого все стороны равны"},
+  {t:"Квадрат", d:"четырёхугольник, являющийся одновременно и прямоугольником, и ромбом"},
+  {t:"Трапеция", d:"четырёхугольник ровно с одной парой параллельных сторон (основания); другая пара — боковые стороны"},
+  {t:"Средняя линия трапеции", d:"отрезок, соединяющий середины боковых сторон трапеции"}
+]},
+{id:"t-circle", title:"Окружность", grade:"7–9 класс", items:[
+  {t:"Окружность", d:"множество всех точек плоскости, равноудалённых от данной точки — центра"},
+  {t:"Круг", d:"часть плоскости, ограниченная окружностью, вместе с самой окружностью"},
+  {t:"Радиус", d:"отрезок, соединяющий центр окружности с любой её точкой"},
+  {t:"Диаметр", d:"хорда, проходящая через центр окружности; равен двум радиусам"},
+  {t:"Хорда", d:"отрезок, соединяющий две точки окружности"},
+  {t:"Касательная", d:"прямая, имеющая с окружностью ровно одну общую точку"},
+  {t:"Секущая", d:"прямая, пересекающая окружность в двух точках"},
+  {t:"Дуга", d:"часть окружности, заключённая между двумя её точками"},
+  {t:"Центральный угол", d:"угол с вершиной в центре окружности"},
+  {t:"Вписанный угол", d:"угол с вершиной на окружности, стороны которого — хорды"},
+  {t:"Сегмент", d:"часть круга, отсекаемая от него хордой"},
+  {t:"Сектор", d:"часть круга, ограниченная двумя радиусами и дугой между ними"},
+  {t:"Вписанная окружность", d:"окружность, касающаяся всех сторон многоугольника изнутри"},
+  {t:"Описанная окружность", d:"окружность, проходящая через все вершины многоугольника"}
+]},
+{id:"t-sim", title:"Подобие и площади", grade:"8 класс", items:[
+  {t:"Подобные фигуры", d:"фигуры одинаковой формы: соответственные углы равны, а стороны пропорциональны"},
+  {t:"Коэффициент подобия", d:"число k, показывающее, во сколько раз стороны одной фигуры больше сторон другой"},
+  {t:"Площадь", d:"числовая характеристика размера части плоскости, занимаемой фигурой"},
+  {t:"Равновеликие фигуры", d:"фигуры с равными площадями (необязательно одинаковой формы)"}
+]},
+{id:"t-vec", title:"Векторы", grade:"9 класс", items:[
+  {t:"Вектор", d:"направленный отрезок с указанными началом и концом"},
+  {t:"Модуль (длина) вектора", d:"длина отрезка, задающего вектор"},
+  {t:"Коллинеарные векторы", d:"векторы, лежащие на одной прямой или на параллельных прямых"},
+  {t:"Сонаправленные векторы", d:"коллинеарные векторы, направленные в одну сторону"},
+  {t:"Равные векторы", d:"векторы с равными длинами и совпадающими направлениями"},
+  {t:"Скалярное произведение векторов", d:"число, равное произведению длин векторов на косинус угла между ними"}
+]},
+{id:"t-trig", title:"Тригонометрия и многоугольники", grade:"9 класс", items:[
+  {t:"Синус острого угла", d:"отношение противолежащего катета к гипотенузе"},
+  {t:"Косинус острого угла", d:"отношение прилежащего катета к гипотенузе"},
+  {t:"Тангенс острого угла", d:"отношение противолежащего катета к прилежащему"},
+  {t:"Правильный многоугольник", d:"многоугольник, у которого все стороны и все углы равны"},
+  {t:"Апофема", d:"перпендикуляр, опущенный из центра правильного многоугольника на его сторону"}
+]}
+];
+
+const FORMULAS = [
+{id:"f-perim", title:"Периметры", grade:"7–9 класс", items:[
+  {t:"Треугольник", f:"P = a + b + c"},
+  {t:"Прямоугольник", f:"P = 2(a + b)"},
+  {t:"Квадрат", f:"P = 4a"},
+  {t:"Параллелограмм", f:"P = 2(a + b)"}
+]},
+{id:"f-area", title:"Площади", grade:"7–9 класс", items:[
+  {t:"Прямоугольник", f:"S = a·b"},
+  {t:"Квадрат", f:"S = a²"},
+  {t:"Параллелограмм", f:"S = a·h = a·b·sin α"},
+  {t:"Треугольник", f:"S = ½·a·h = ½·a·b·sin C"},
+  {t:"Треугольник по трём сторонам (Герон)", f:"S = √(p(p−a)(p−b)(p−c)), p = (a+b+c)/2"},
+  {t:"Равносторонний треугольник", f:"S = (a²√3) / 4"},
+  {t:"Трапеция", f:"S = ((a+b)/2)·h"},
+  {t:"Ромб", f:"S = ½·d₁·d₂ = a²·sin α"},
+  {t:"Круг", f:"S = πR²"},
+  {t:"Сектор круга", f:"S = πR²·α/360°"}
+]},
+{id:"f-trig", title:"Прямоугольный треугольник и тригонометрия", grade:"7–9 класс", items:[
+  {t:"Теорема Пифагора", f:"c² = a² + b²"},
+  {t:"Синус, косинус, тангенс", f:"sin α = прот/гип,  cos α = прил/гип,  tg α = прот/прил"},
+  {t:"Основное тригонометрическое тождество", f:"sin²α + cos²α = 1"},
+  {t:"Теорема синусов", f:"a/sin A = b/sin B = c/sin C = 2R"},
+  {t:"Теорема косинусов", f:"c² = a² + b² − 2ab·cos C"}
+]},
+{id:"f-circle", title:"Окружность", grade:"7–9 класс", items:[
+  {t:"Длина окружности", f:"C = 2πR"},
+  {t:"Длина дуги", f:"l = πR·α/180°"},
+  {t:"Радиус вписанной окружности треугольника", f:"r = S/p,  где p — полупериметр"},
+  {t:"Радиус описанной окружности треугольника", f:"R = (a·b·c) / (4S)"}
+]},
+{id:"f-vec", title:"Векторы и координаты", grade:"7–9 класс", items:[
+  {t:"Длина вектора", f:"|a| = √(x² + y²)"},
+  {t:"Расстояние между точками", f:"d = √((x₂−x₁)² + (y₂−y₁)²)"},
+  {t:"Координаты середины отрезка", f:"xₘ = (x₁+x₂)/2,  yₘ = (y₁+y₂)/2"},
+  {t:"Скалярное произведение", f:"a·b = x₁x₂ + y₁y₂ = |a|·|b|·cos φ"},
+  {t:"Косинус угла между векторами", f:"cos φ = (x₁x₂+y₁y₂) / (|a|·|b|)"},
+  {t:"Уравнение окружности", f:"(x−a)² + (y−b)² = R²,  центр (a; b)"},
+  {t:"Уравнение прямой", f:"ax + by + c = 0"}
+]},
+{id:"f-poly", title:"Многоугольники", grade:"7–9 класс", items:[
+  {t:"Сумма углов выпуклого n-угольника", f:"180°·(n − 2)"},
+  {t:"Угол правильного n-угольника", f:"180°·(n − 2) / n"},
+  {t:"Сторона правильного n-угольника", f:"a = 2R·sin(180°/n)"},
+  {t:"Апофема правильного n-угольника", f:"m = R·cos(180°/n)"}
+]},
+{id:"f-stereo", title:"Стереометрия: объёмы и площади поверхностей", grade:"10–11 класс", items:[
+  {t:"Куб", f:"V = a³,  S(полн.) = 6a²", d:"cube"},
+  {t:"Прямоугольный параллелепипед", f:"V = a·b·c,  S(полн.) = 2(ab+bc+ac)", d:"box"},
+  {t:"Прямая призма", f:"V = Sосн·h,  Sбок = Pосн·h", d:"prism"},
+  {t:"Пирамида", f:"V = ⅓·Sосн·h", d:"pyramid"},
+  {t:"Правильная пирамида (боковая поверхность)", f:"Sбок = ½·Pосн·l,  l — апофема боковой грани", d:"pyramid"},
+  {t:"Цилиндр", f:"V = πR²h,  Sбок = 2πRh,  Sполн = 2πR(R+h)", d:"cylinder"},
+  {t:"Конус", f:"V = ⅓πR²h,  Sбок = πRl,  Sполн = πR(R+l),  l — образующая", d:"cone"},
+  {t:"Шар (сфера)", f:"V = (4/3)πR³,  S = 4πR²", d:"sphere"}
+]}
+];
+
+const STEREO_DIAGRAMS = {
+  cube:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 78 L65 78 L65 33 L20 33 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M40 58 L85 58 L85 13 L40 13 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M20 78 L40 58 M65 78 L85 58 M65 33 L85 13 M20 33 L40 13" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  box:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 80 L75 80 L75 50 L15 50 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M35 60 L95 60 L95 30 L35 30 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M15 80 L35 60 M75 80 L95 60 M75 50 L95 30 M15 50 L35 30" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  prism:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 82 L60 82 L38 35 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M40 62 L85 62 L63 15 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M15 82 L40 62 M60 82 L85 62 M38 35 L63 15" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  pyramid:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 78 L68 78 L85 58 L30 58 Z" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M50 12 L12 78 M50 12 L68 78 M50 12 L85 58 M50 12 L30 58" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  cylinder:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="22" rx="32" ry="11" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <ellipse cx="50" cy="72" rx="32" ry="11" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M18 22 L18 72 M82 22 L82 72" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  cone:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="72" rx="32" ry="11" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <path d="M50 10 L18 72 M50 10 L82 72" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`,
+  sphere:`<svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="45" r="32" stroke="var(--ink-soft)" stroke-width="1.5"/>
+    <ellipse cx="50" cy="45" rx="32" ry="9" stroke="var(--ink-soft)" stroke-width="1.5"/>
+  </svg>`
+};
+
+let PROGRESS = {};
+try{ PROGRESS = JSON.parse(localStorage.getItem('geo-terms-formulas-progress') || '{}'); }catch(e){ PROGRESS = {}; }
+function saveProgress(){ try{ localStorage.setItem('geo-terms-formulas-progress', JSON.stringify(PROGRESS)); }catch(e){} }
+
+function renderSet(DATA, kind, contentEl, tocEl, prefix, diagrams){
+  const contentFrag = document.createDocumentFragment();
+  const tocFrag = document.createDocumentFragment();
+  DATA.forEach(chapter => {
+    const pill = document.createElement('a');
+    pill.className = 'pill';
+    pill.href = '#' + chapter.id;
+    pill.textContent = chapter.title;
+    pill.dataset.chapter = chapter.id;
+    tocFrag.appendChild(pill);
+
+    const section = document.createElement('section');
+    section.className = 'chapter';
+    section.id = chapter.id;
+    section.dataset.kind = kind;
+
+    const head = document.createElement('div');
+    head.className = 'chapter-head';
+    head.innerHTML = `<h2>${chapter.title}</h2>${chapter.grade ? `<span class="chapter-tag" style="font-size:11px;color:var(--ink-soft);border:1px solid var(--border);border-radius:999px;padding:2px 9px;">${chapter.grade}</span>` : ''}<span class="chapter-progress" id="prog-${prefix}-${chapter.id}"></span>`;
+    section.appendChild(head);
+
+    chapter.items.forEach((item, ii) => {
+      const id = prefix + '-' + chapter.id + '-' + ii;
+      const div = document.createElement('div');
+      div.className = 'item' + (kind==='formula' ? ' formula-item' : '') + (PROGRESS[id] ? ' known' : '');
+      div.dataset.search = (item.t + ' ' + (kind === 'term' ? (item.d||'') : (item.f||''))).toLowerCase();
+      const diagramHtml = (diagrams && item.d && diagrams[item.d])
+        ? `<div style="max-width:110px;margin:6px 0 4px;">${diagrams[item.d]}</div>` : '';
+      const bodyHtml = kind === 'term'
+        ? `<p class="term-def">${item.d}</p>`
+        : `<div class="item-formula">${item.f}</div>${diagramHtml}`;
+      div.innerHTML = `
+        <input type="checkbox" data-id="${id}" ${PROGRESS[id] ? 'checked' : ''} aria-label="Отметить как выученное">
+        <div class="item-body">
+          <p class="item-title">${item.t}</p>
+          ${bodyHtml}
+        </div>`;
+      section.appendChild(div);
+    });
+    contentFrag.appendChild(section);
+  });
+  tocEl.appendChild(tocFrag);
+  contentEl.appendChild(contentFrag);
+}
+
+renderSet(TERMS, 'term', document.getElementById('content-terms'), document.getElementById('toc-terms'), 'term', null);
+renderSet(FORMULAS, 'formula', document.getElementById('content-formulas'), document.getElementById('toc-formulas'), 'formula', STEREO_DIAGRAMS);
+
+let activeTab = 'terms';
+
+function currentData(){ return activeTab === 'terms' ? TERMS : FORMULAS; }
+function currentPrefix(){ return activeTab === 'terms' ? 'term' : 'formula'; }
+
+function updateProgress(){
+  const DATA = currentData();
+  const prefix = currentPrefix();
+  let totalAll = 0, knownAll = 0;
+  DATA.forEach(chapter => {
+    let total = chapter.items.length, known = 0;
+    chapter.items.forEach((item, ii) => { if(PROGRESS[prefix + '-' + chapter.id + '-' + ii]) known++; });
+    totalAll += total; knownAll += known;
+    const el = document.getElementById('prog-' + prefix + '-' + chapter.id);
+    if(el) el.textContent = known + ' / ' + total;
+  });
+  document.getElementById('overallFill').style.width = totalAll ? (knownAll/totalAll*100) + '%' : '0%';
+  document.getElementById('overallLabel').textContent = knownAll + ' / ' + totalAll;
+}
+updateProgress();
+
+document.getElementById('content-terms').addEventListener('change', handleCheck);
+document.getElementById('content-formulas').addEventListener('change', handleCheck);
+function handleCheck(e){
+  if(e.target.matches('input[type="checkbox"]')){
+    const id = e.target.dataset.id;
+    PROGRESS[id] = e.target.checked;
+    saveProgress();
+    e.target.closest('.item').classList.toggle('known', e.target.checked);
+    updateProgress();
+  }
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('Сбросить отметки «выучено» в текущей вкладке (' + (activeTab==='terms'?'Термины':'Формулы') + ')?')){
+    const prefix = currentPrefix();
+    currentData().forEach(chapter => chapter.items.forEach((item, ii) => { delete PROGRESS[prefix + '-' + chapter.id + '-' + ii]; }));
+    saveProgress();
+    document.getElementById('view-' + activeTab).querySelectorAll('.item').forEach(el => el.classList.remove('known'));
+    document.getElementById('view-' + activeTab).querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+    updateProgress();
+  }
+});
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    document.getElementById('view-terms').classList.toggle('active', activeTab==='terms');
+    document.getElementById('view-formulas').classList.toggle('active', activeTab==='formulas');
+    document.getElementById('toc-terms').classList.toggle('hidden', activeTab!=='terms');
+    document.getElementById('toc-formulas').classList.toggle('hidden', activeTab!=='formulas');
+    document.getElementById('search').value = '';
+    applyFilter('');
+    updateProgress();
+  });
+});
+
+const searchInput = document.getElementById('search');
+let searchDebounce = null;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchDebounce);
+  const q = searchInput.value.trim().toLowerCase();
+  searchDebounce = setTimeout(() => applyFilter(q), 80);
+});
+
+function applyFilter(q){
+  const DATA = currentData();
+  const tocEl = activeTab === 'terms' ? document.getElementById('toc-terms') : document.getElementById('toc-formulas');
+  DATA.forEach(chapter => {
+    const section = document.getElementById(chapter.id);
+    const items = section.querySelectorAll('.item');
+    let visibleCount = 0;
+    items.forEach(el => {
+      const match = !q || el.dataset.search.includes(q);
+      el.classList.toggle('hidden', !match);
+      if(match) visibleCount++;
+    });
+    section.classList.toggle('hidden', visibleCount === 0);
+    const pill = tocEl.querySelector('[data-chapter="' + chapter.id + '"]');
+    if(pill) pill.classList.toggle('dim', visibleCount === 0);
+  });
+}
+
+/* ---------- Офлайн-статус ---------- */
+function updateOnlineStatus(){
+  document.getElementById('offlineBanner').classList.toggle('hidden', navigator.onLine);
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
+/* ---------- Service worker: офлайн-кэш ---------- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
